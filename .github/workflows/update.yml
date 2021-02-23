@@ -23,6 +23,9 @@ jobs:
     - name: Update news
       run: |-
         ./scrape_news.py
+    - name: Generate HTML
+      run: |-
+        ./generate_html.py
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
