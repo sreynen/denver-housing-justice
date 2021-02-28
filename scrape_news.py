@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import re
 
 import requests
 
@@ -15,16 +16,24 @@ json_feed = {
     'items': []
 }
 
-filter_keywords = ['house', 'housing', 'homeless', 'evict', 'rent']
+filter_key_phrases = [
+    ['house', 'prices'], ['housing'],
+    ['homeless'], ['homelessness'],
+    ['evict'], ['eviction'],
+    ['rent'],
+    ['property', 'tax'], ['property', 'taxes'],
+]
 response = requests.get('https://sreynen.github.io/denver-news/feed.json')
 source_json_feed = json.loads(response.text)
 for item in source_json_feed.get('items'):
     match = False
-    for keyword in filter_keywords:
-        if f'{keyword} ' in item.get('title', ''):
+    title_words = re.findall(r"[\w']+", item.get('title', ''))
+    title_string = ' '.join([word.lower() for word in title_words])
+    for phrase in filter_key_phrases:
+        phrase_string = ' '.join(phrase)
+        if phrase_string in title_string:
             match = True
     if match:
         json_feed['items'].append(item)
-    print(item.get('id'))
 
 update_feed('./docs/feed.json', json_feed)
