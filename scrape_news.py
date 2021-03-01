@@ -22,6 +22,7 @@ filter_key_phrases = [
     'evict', 'eviction',
     'rent',
     'property tax', 'property taxes',
+    'living on city streets', 'living on the streets'
 ]
 response = requests.get('https://sreynen.github.io/denver-news/feed.json')
 source_json_feed = json.loads(response.text)
