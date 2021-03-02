@@ -18,7 +18,7 @@ json_feed = {
 
 filter_key_phrases = [
     'house prices', 'housing',
-    'homeless', 'homelessness',
+    'homeless', 'homelessness', 'unhoused',
     'evict', 'eviction',
     'rent',
     'property tax', 'property taxes',
