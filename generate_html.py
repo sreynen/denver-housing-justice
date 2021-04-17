@@ -11,12 +11,12 @@ with open('./docs/feed.json', 'r', encoding='utf8') as file:
 
 with open('./templates/index.html', 'r', encoding='utf8') as file:
   html_template = file.read()
-
 with open('./templates/list.html', 'r', encoding='utf8') as file:
   list_template = file.read()
-
 with open('./templates/list-news-item.html', 'r', encoding='utf8') as file:
   news_item_template = file.read()
+with open('./templates/button.html', 'r', encoding='utf8') as file:
+  button_template = file.read()
 
 news_list_items = [news_item_template
                    .replace('{{ url }}', item.get('url'))
@@ -37,6 +37,10 @@ advocates_list_items = [news_item_template
                         .replace('{{ url }}', advocate.get('website'))
                         .replace('{{ title }}', advocate.get('name'))
                         for advocate in advocates]
+
+button = (button_template.replace('{{ text }}', 'Add')
+                         .replace('{{ url }}', 'https://github.com/sreynen/denver-housing-justice/new/main/data/advocates?filename=name_here.yaml&value=name:%20%0Awebsite:%20'))
+advocates_list_items.append(f'<li class="mb3">{button}</li>\n')
 
 advocates_list = list_template.replace('{{ items }}',
                                        ''.join(advocates_list_items))
